@@ -1,6 +1,6 @@
 # ELiCiT: Effective and Lightweight Lossy Compression of Tensors
 
-This repository contains the official implementation of ELiCiT, described in the paper ELiCiT: Effective and Lightweight Lossy Compression of Tensors, Jihoon Ko, Taehyung Kwon, Jinhong Jung, and Kijung Shin, ICDM 2024 (To be appeared).
+This repository contains the official implementation of ELiCiT, described in the paper ELiCiT: Effective and Lightweight Lossy Compression of Tensors, Jihoon Ko, Taehyung Kwon, Jinhong Jung, and Kijung Shin, ICDM 2024.
 
 ELiCiT (**E**ffective and **L**ightweight Lossy **C**ompress**i**on of **T**ensors) is an algorithm for lossy compression of tensors. ELiCiT has the following advantages:
 
@@ -98,22 +98,31 @@ To fine-tune the compressed model, run this command:
 python finetune_ours.py --task [cola|mnli|mrpc|qnli|qqp|sst2|stsb] --target [target-checkpoint-path] --lr [2e-5|3e-5|5e-5] --weight-decay [0|0.01] --num-epochs [2|3|4] --seed [0|1000|2000|3000|4000] --gpu [gpu-id]
 ```
 
+### Tensor-stream Summarization (in `stream_summarization/` directory)
+
+To evaluate the performance of cELiCiT on summarizing tensor streams, run this command:
+
+```bash
+python train_graph.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id]
+python train_tensor.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id]
+```
+
 ## Datasets
 
 ### Tensor Compression
 
 We used 8 real-world datasets, which are listed below. All datasets we considered are available at the [TensorCodec](https://github.com/kbrother/TensorCodec) repository.
 
-| Order | Name | Shape | #Entries | Brief description |
-| --- | --- | --- | --- | --- |
-| 4 | Absorb | 192 x 288 x 30 x 120 | 199.1M | Climate |
-|  | NYC | 265 x 265 x 28 x 35 | 68.8M | Traffic volume |
-| 3 | Action | 100 x 570 x 567 | 32.3M | Video features |
-|  | Activity | 337 x 570 x 320 | 61.5M | Video features |
-|  | Airquality | 5600 x 362 x 6 | 12.2M | Climate |
-|  | PEMS | 963 x 144 x 440 | 61.0M | Traffic volume |
-|  | Stock | 1317 x 88 x 916 | 106.2M | Stock |
-|  | Uber | 183 x 24 x 1140 | 5.0M | Traffic volume |
+| Order | Name | Shape | #Entries | Brief description | Source |
+| --- | --- | --- | --- | --- | --- |
+| 4 | Absorb | 192 x 288 x 30 x 120 | 199.1M | Climate | [Climate Data at the National Center for Atmospheric Research](https://www.earthsystemgrid.org) |
+|  | NYC | 265 x 265 x 28 x 35 | 68.8M | Traffic volume | [New York City Government](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) |
+| 3 | Action | 100 x 570 x 567 | 32.3M | Video features | [Multivariate LSTM-FCNs](https://github.com/titu1994/MLSTM-FCN) |
+|  | Activity | 337 x 570 x 320 | 61.5M | Video features | [Multivariate LSTM-FCNs](https://github.com/titu1994/MLSTM-FCN) |
+|  | Airquality | 5600 x 362 x 6 | 12.2M | Climate | [Air Korea](https://www.airkorea.or.kr/web/) |
+|  | PEMS | 963 x 144 x 440 | 61.0M | Traffic volume | [The UEA & UCR Time Series Classification Repository](https://www.timeseriesclassification.com/) |
+|  | Stock | 1317 x 88 x 916 | 106.2M | Stock | [Zoom-Tucker](https://github.com/jungijang/KoreaStockData) |
+|  | Uber | 183 x 24 x 1140 | 5.0M | Traffic volume | [FROSTT](http://frostt.io/) |
 
 ### Matrix Completion
 
@@ -123,6 +132,9 @@ We used 5 real-world matrices containing ratings of movies provided by users. Fo
 
 We used 7 downstream tasks from the GLUE benchmark for evaluating our method and its competitors. The datasets for the tasks will be automatically downloaded when you run the provided code for training and evaluation.
 
+### Tensor-stream Summarization
+
+Using the Lkml and Enron datasets referenced in the [MayFly framework](https://openreview.net/forum?id=n7Sr8SW4bn), we sampled streams of four different lengths for each dataset using the source code provided in the linked framework. Detailed statistics of the sampled streams can be found in the paper.
 
 ## Terms and Conditions
 If you use this code as part of any published research, please consider acknowledging our ICDM 2024 paper.
