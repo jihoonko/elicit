@@ -103,8 +103,13 @@ python finetune_ours.py --task [cola|mnli|mrpc|qnli|qqp|sst2|stsb] --target [tar
 To evaluate the performance of cELiCiT on summarizing tensor streams, run this command:
 
 ```bash
-python train_graph.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id]
-python train_tensor.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id]
+python train_graph.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id] # for 2-order tensor streams
+```
+
+or
+
+```bash
+python train_tensor.py --input-path example_data --reg 0.1 --seed [0|1000|2000] --gpu [gpu-id] # for 3-order tensor streams
 ```
 
 ## Datasets
